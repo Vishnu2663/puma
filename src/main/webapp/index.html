@@ -3,522 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nike - Just Do It</title>
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" type="image/svg+xml">
+    <title>PUMA Apparel & Clothing - Men, Women, Kids</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* General Styles */
-        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700;900&display=swap');
+        /* New Custom styles for the Puma Apparel Theme (Vibrant Coral/Pink) */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* Bright white background */
+        }
+        .text-puma-coral { color: #ff6b6b; } /* Vibrant Coral Accent */
+        .bg-puma-coral { background-color: #ff6b6b; }
+        .hover\:bg-puma-coral-dark:hover { background-color: #e84343; } /* Darker coral for hover */
 
-        :root {
-            --nike-black: #111;
-            --nike-white: #fff;
-            --nike-volt: #ccff00; /* Neon yellow-green */
-            --text-dark: #333;
+        /* Ensures the background image is covered on all screens */
+        .hero-bg {
+            background-image: url('https://placehold.co/1200x600/f87979/ffffff?text=PUMA+Apparel+Style');
+            background-size: cover;
+            background-position: center;
+            /* Added for parallax effect via JS */
+            transition: background-position 0.1s linear;
         }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--nike-white);
-            color: var(--text-dark);
+        /* Smooth scroll for navigation */
+        html {
             scroll-behavior: smooth;
         }
 
-        /* 1. Hero Section - Main Advertisement */
-        .hero-section {
-            position: relative;
-            width: 100%;
-            height: 100vh; /* Full viewport height */
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://source.unsplash.com/random/1600x900/?nike,running,shoes') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: var(--nike-white);
-            text-align: center;
-            overflow: hidden;
+        /* Card transition for the product grid */
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
         }
 
-        .hero-logo {
-            width: 150px; /* Adjust Nike logo size */
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
-        }
-
-        .hero-section h1 {
-            font-family: 'Anton', sans-serif;
-            font-size: 5em;
-            margin: 0;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            text-shadow: 0 0 15px rgba(0,0,0,0.8);
-        }
-
-        .hero-section p {
-            font-size: 1.5em;
-            margin: 10px 0 30px;
-            font-weight: 300;
-        }
-
-        .hero-button {
-            background-color: var(--nike-volt);
-            color: var(--nike-black);
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: 700;
-            text-transform: uppercase;
+        /* 3D Tilt Effect for Collection Cards */
+        .collection-card {
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease;
+            perspective: 1000px; /* Needed for 3D transforms */
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(204, 255, 0, 0.4);
         }
-
-        .hero-button:hover {
-            background-color: #d9ff33; /* Slightly brighter volt */
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(204, 255, 0, 0.6);
+        .collection-card:hover {
+            transform: scale(1.03) rotateY(3deg) rotateX(1deg);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.3);
         }
-
-        /* 2. Navigation Bar (positioned over hero) */
-        .navbar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            background-color: rgba(17, 17, 17, 0.8); /* Semi-transparent black */
-            padding: 15px 0;
-            z-index: 1001;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-        }
-
-        .nav-logo {
-            width: 60px; /* Smaller Nike logo for nav */
-            filter: brightness(0) invert(1); /* Make it white */
-        }
-
-        .nav-links {
-            display: flex;
-        }
-
-        .nav-links a {
-            color: var(--nike-white);
-            text-decoration: none;
-            margin-left: 35px;
-            font-weight: 400;
-            font-size: 1.1em;
-            text-transform: uppercase;
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--nike-volt);
-            transform: translateY(-2px);
-        }
-
-        /* 3. Category Sections */
-        .section-wrapper {
-            max-width: 1400px;
-            margin: 80px auto;
-            padding: 0 30px;
-        }
-
-        .section-title {
-            font-family: 'Anton', sans-serif;
-            text-align: center;
-            font-size: 3em;
-            margin-bottom: 50px;
-            color: var(--nike-black);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--nike-volt);
-            border-radius: 2px;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .category-card {
-            background-color: var(--nike-white);
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-
-        .category-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .category-card:hover img {
-            transform: scale(1.05); /* Slight zoom on image hover */
-        }
-
-        .category-info {
-            padding: 25px;
-        }
-
-        .category-info h3 {
-            font-family: 'Anton', sans-serif;
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            color: var(--nike-black);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .category-info p {
-            font-size: 1em;
-            color: var(--text-dark);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .category-button {
-            display: inline-block;
-            background-color: var(--nike-black);
-            color: var(--nike-white);
-            padding: 10px 25px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9em;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .category-button:hover {
-            background-color: var(--nike-volt);
-            color: var(--nike-black);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(204, 255, 0, 0.4);
-        }
-
-        /* 4. Product Spotlight (Marquee-like but static for better control) */
-        .product-spotlight {
-            background-color: var(--nike-black);
-            padding: 60px 0;
-            margin-top: 80px;
-            color: var(--nike-white);
-            text-align: center;
-        }
-
-        .spotlight-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 30px;
-        }
-
-        .spotlight-container h2 {
-            font-family: 'Anton', sans-serif;
-            font-size: 3em;
-            margin-bottom: 40px;
-            color: var(--nike-volt);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .spotlight-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .spotlight-item {
-            background-color: #222;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .spotlight-item:hover {
-            transform: translateY(-5px);
-            background-color: #333;
-        }
-
-        .spotlight-item img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            border: 2px solid var(--nike-volt);
-        }
-
-        .spotlight-item h4 {
-            font-size: 1.2em;
-            margin-bottom: 8px;
-            color: var(--nike-white);
-        }
-
-        .spotlight-item p {
-            font-size: 0.9em;
-            color: #ccc;
-        }
-
-        .spotlight-item .price {
-            font-size: 1.1em;
-            font-weight: 700;
-            color: var(--nike-volt);
-            margin-top: 10px;
-        }
-
-        /* 5. Call to Action / Footer */
-        .cta-footer {
-            background-color: var(--nike-white);
-            padding: 60px 0;
-            text-align: center;
-            border-top: 8px solid var(--nike-volt);
-        }
-
-        .cta-footer h2 {
-            font-family: 'Anton', sans-serif;
-            font-size: 3em;
-            color: var(--nike-black);
-            margin-bottom: 20px;
-        }
-
-        .cta-footer p {
-            font-size: 1.2em;
-            color: var(--text-dark);
-            margin-bottom: 30px;
-        }
-
-        .footer-links {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid #eee;
-        }
-
-        .footer-links a {
-            color: var(--nike-black);
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 400;
-            font-size: 0.9em;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--nike-volt);
-        }
-
-        .copyright {
-            margin-top: 20px;
-            font-size: 0.8em;
-            color: #666;
-        }
-
-        /* Scroll-to-Top Button */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--nike-volt);
-            color: var(--nike-black);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(204, 255, 0, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .scroll-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(204, 255, 0, 0.6);
-        }
-
     </style>
 </head>
-<body>
+<body class="text-gray-900">
 
-    <a href="#" class="scroll-to-top" id="scrollToTop">↑</a>
+    <!-- Section 1: Header and Navigation (Dark Slate Theme) -->
+    <header class="sticky top-0 bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+            <!-- Logo/Brand Name -->
+            <div class="text-3xl font-extrabold flex items-center">
+                <span class="text-puma-coral">PUMA</span>
+                <span class="text-gray-900 ml-1">Apparel</span>
+            </div>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike Logo">
-            </a>
-            <div class="nav-links">
-                <a href="#hero">Home</a>
-                <a href="#featured-categories">Categories</a>
-                <a href="#spotlight">New Arrivals</a>
-                <a href="#explore">Explore</a>
-                <a href="#contact">Contact</a>
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 font-medium">
+                <a href="#home" class="text-gray-700 hover:text-puma-coral transition duration-300">Home</a>
+                <a href="#categories" class="text-gray-700 hover:text-puma-coral transition duration-300">Collections</a>
+                <a href="#featured" class="text-gray-700 hover:text-puma-coral transition duration-300">Featured</a>
+                <a href="#kids" class="text-gray-700 hover:text-puma-coral transition duration-300">Kids</a>
+            </nav>
+
+            <!-- Cart/User Icons -->
+            <div class="flex space-x-4">
+                <button class="text-gray-600 hover:text-puma-coral p-2 rounded-full transition duration-300">
+                    <!-- Search Icon (Inline SVG) -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+                <button class="bg-gray-100 text-gray-800 hover:bg-puma-coral hover:text-white p-2 rounded-full transition duration-300">
+                    <!-- Shopping Cart Icon (Inline SVG) -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <section class="hero-section" id="hero">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike Logo" class="hero-logo">
-        <h1>UNLEASH YOUR BEST</h1>
-        <p>Explore the latest in performance footwear and athletic wear. Just Do It.</p>
-        <button class="hero-button" onclick="document.getElementById('featured-categories').scrollIntoView({ behavior: 'smooth' });">Shop Now</button>
-    </section>
+    <main id="home" class="pt-8">
 
-    <section class="section-wrapper" id="featured-categories">
-        <h2 class="section-title">Shop by Category</h2>
-        <div class="category-grid">
-            <div class="category-card">
-                <img src="https://source.unsplash.com/random/800x600/?nike,running,shoes" alt="Running Shoes">
-                <div class="category-info">
-                    <h3>Running</h3>
-                    <p>Push your limits with cutting-edge running shoe technology.</p>
-                    <a href="#" class="category-button">View Running &rarr;</a>
+        <!-- Section 2: Hero Banner (Parallax Controlled by JS) -->
+        <section class="hero-bg h-96 md:h-[500px] flex items-center justify-center rounded-xl mx-4 lg:mx-auto lg:max-w-7xl shadow-xl">
+            <div class="p-8 md:p-16 bg-white bg-opacity-80 rounded-xl text-center max-w-lg">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
+                    STYLE. COMFORT. PERFORMANCE.
+                </h1>
+                <p class="text-xl text-gray-700 mb-8 hidden sm:block">
+                    The new line of activewear and lifestyle clothing for every body.
+                </p>
+                <!-- Enhanced CTA button with scale effects -->
+                <a href="#featured" class="inline-block px-8 py-3 bg-puma-coral text-white font-bold rounded-full text-lg hover:bg-puma-coral-dark transition duration-300 shadow-lg transform hover:scale-105 active:scale-95">
+                    Shop New Looks
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 3: Categories for Men, Women, Kids (3D Tilt Effect) -->
+        <section id="categories" class="py-16">
+            <div class="container mx-auto px-4 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-900">
+                    Shop By Collection
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+                    <!-- Collection Card 1: WOMEN -->
+                    <div class="collection-card relative overflow-hidden rounded-xl shadow-lg group bg-pink-100">
+                        <img src="https://placehold.co/400x350/ffe4e6/ff6b6b?text=WOMEN'S+WEAR" alt="Women's Apparel" class="w-full h-72 object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-50">
+                            <h4 class="text-3xl font-extrabold text-white uppercase tracking-widest border-b-4 border-puma-coral pb-2">WOMEN</h4>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 2: MEN -->
+                    <div class="collection-card relative overflow-hidden rounded-xl shadow-lg group bg-blue-100">
+                        <img src="https://placehold.co/400x350/a9e7f9/ff6b6b?text=MEN'S+WEAR" alt="Men's Apparel" class="w-full h-72 object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-50">
+                            <h4 class="text-3xl font-extrabold text-white uppercase tracking-widest border-b-4 border-puma-coral pb-2">MEN</h4>
+                        </div>
+                    </div>
+
+                    <!-- Collection Card 3: KIDS -->
+                    <div id="kids" class="collection-card relative overflow-hidden rounded-xl shadow-lg group bg-green-100">
+                        <img src="https://placehold.co/400x350/d1e7c5/ff6b6b?text=KIDS+WEAR" alt="Kids' Apparel" class="w-full h-72 object-cover transition duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center transition-opacity duration-300 group-hover:bg-opacity-50">
+                            <h4 class="text-3xl font-extrabold text-white uppercase tracking-widest border-b-4 border-puma-coral pb-2">KIDS</h4>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="category-card">
-                <img src="https://source.unsplash.com/random/800x600/?nike,basketball,shoes" alt="Basketball Shoes">
-                <div class="category-info">
-                    <h3>Basketball</h3>
-                    <p>Dominate the court with superior grip, support, and style.</p>
-                    <a href="#" class="category-button">View Basketball &rarr;</a>
+        </section>
+
+        <!-- Section 4: Featured Items / Product Grid -->
+        <section id="featured" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-900">
+                    Featured Styles
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                    <!-- Product Card 1: Outerwear (Jacket) -->
+                    <div class="product-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 group">
+                        <!-- Added group-hover:opacity-80 for image dim effect -->
+                        <img src="https://placehold.co/600x400/1f2937/ffffff?text=Performance+Jacket" alt="Performance Hoodie" class="w-full h-56 object-cover transition duration-300 group-hover:opacity-80">
+                        <div class="p-5">
+                            <span class="text-xs font-semibold text-gray-500 uppercase">Outerwear</span>
+                            <h4 class="mt-1 text-xl font-bold text-gray-900">StormCELL Training Jacket</h4>
+                            <p class="text-lg font-extrabold text-puma-coral mt-2">$130.00</p>
+                            <button class="mt-4 w-full py-2 bg-gray-900 text-white rounded-lg hover:bg-puma-coral transition duration-300 transform active:scale-98">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2: Tops & Tees (T-Shirt) -->
+                    <div class="product-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 group">
+                        <!-- Added group-hover:opacity-80 for image dim effect -->
+                        <img src="https://placehold.co/600x400/f39c12/000000?text=Essential+Tee" alt="Essential T-Shirt" class="w-full h-56 object-cover transition duration-300 group-hover:opacity-80">
+                        <div class="p-5">
+                            <span class="text-xs font-semibold text-gray-500 uppercase">Tops & Tees</span>
+                            <h4 class="mt-1 text-xl font-bold text-gray-900">Essential Graphic Tee</h4>
+                            <p class="text-lg font-extrabold text-puma-coral mt-2">$35.00</p>
+                            <button class="mt-4 w-full py-2 bg-gray-900 text-white rounded-lg hover:bg-puma-coral transition duration-300 transform active:scale-98">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3: Activewear (Leggings) -->
+                    <div class="product-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 group">
+                        <!-- Added group-hover:opacity-80 for image dim effect -->
+                        <img src="https://placehold.co/600x400/9b59b6/ffffff?text=Training+Leggings" alt="Training Leggings" class="w-full h-56 object-cover transition duration-300 group-hover:opacity-80">
+                        <div class="p-5">
+                            <span class="text-xs font-semibold text-gray-500 uppercase">Activewear</span>
+                            <h4 class="mt-1 text-xl font-bold text-gray-900">Fit Ultraform Leggings</h4>
+                            <p class="text-lg font-extrabold text-puma-coral mt-2">$60.00</p>
+                            <button class="mt-4 w-full py-2 bg-gray-900 text-white rounded-lg hover:bg-puma-coral transition duration-300 transform active:scale-98">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4: Dresses & Skirts (Dress) -->
+                    <div class="product-card bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 group">
+                        <!-- Added group-hover:opacity-80 for image dim effect -->
+                        <img src="https://placehold.co/600x400/27ae60/ffffff?text=Lifestyle+Dress" alt="Lifestyle Dress" class="w-full h-56 object-cover transition duration-300 group-hover:opacity-80">
+                        <div class="p-5">
+                            <span class="text-xs font-semibold text-gray-500 uppercase">Dresses & Skirts</span>
+                            <h4 class="mt-1 text-xl font-bold text-gray-900">Modern Sports T-Shirt Dress</h4>
+                            <p class="text-lg font-extrabold text-puma-coral mt-2">$55.00</p>
+                            <button class="mt-4 w-full py-2 bg-gray-900 text-white rounded-lg hover:bg-puma-coral transition duration-300 transform active:scale-98">Add to Cart</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="category-card">
-                <img src="https://source.unsplash.com/random/800x600/?nike,lifestyle,sneakers" alt="Lifestyle Sneakers">
-                <div class="category-info">
-                    <h3>Lifestyle</h3>
-                    <p>Iconic designs that define street style and comfort.</p>
-                    <a href="#" class="category-button">View Lifestyle &rarr;</a>
-                </div>
+        </section>
+
+        <!-- Section 5: Promotional Banner (Sale) -->
+        <section class="py-16 bg-puma-coral mx-4 lg:mx-auto lg:max-w-7xl rounded-xl my-16 shadow-2xl">
+            <div class="container mx-auto px-4 lg:px-8 text-center">
+                <h2 class="text-5xl font-extrabold text-white mb-4">
+                    SEASON FINALE: 40% OFF
+                </h2>
+                <p class="text-xl text-white mb-8">
+                    Upgrade your wardrobe with our biggest activewear discount of the year.
+                </p>
+                <!-- Enhanced CTA button with scale effects -->
+                <a href="#" class="inline-block px-10 py-4 bg-white text-puma-coral font-bold rounded-full text-xl hover:bg-gray-200 transition duration-300 shadow-lg transform hover:scale-105 active:scale-95">
+                    View Sale Apparel
+                </a>
             </div>
-            <div class="category-card">
-                <img src="https://source.unsplash.com/random/800x600/?nike,training,shoes" alt="Training Shoes">
-                <div class="category-info">
-                    <h3>Training</h3>
-                    <p>Versatile footwear built for your toughest workouts.</p>
-                    <a href="#" class="category-button">View Training &rarr;</a>
+        </section>
+
+    </main>
+
+    <!-- Footer (Dark Slate Gray) -->
+    <footer class="bg-gray-800 text-gray-400 py-10 mt-12">
+        <div class="container mx-auto px-4 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <!-- Col 1: Brand Info -->
+            <div>
+                <h5 class="text-xl font-bold text-white mb-4">PUMA Apparel</h5>
+                <p class="text-sm">Style that performs. Comfort that lasts. Always moving forward.</p>
+            </div>
+            <!-- Col 2: Services -->
+            <div>
+                <h5 class="text-lg font-semibold text-white mb-4">Customer Care</h5>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-puma-coral transition">Track Order</a></li>
+                    <li><a href="#" class="hover:text-puma-coral transition">Sizing Chart</a></li>
+                    <li><a href="#" class="hover:text-puma-coral transition">FAQs</a></li>
+                </ul>
+            </div>
+            <!-- Col 3: Quick Links -->
+            <div>
+                <h5 class="text-lg font-semibold text-white mb-4">Quick Links</h5>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#featured" class="hover:text-puma-coral transition">Featured Styles</a></li>
+                    <li><a href="#categories" class="hover:text-puma-coral transition">Collections</a></li>
+                    <li><a href="#kids" class="hover:text-puma-coral transition">Kids' Clothing</a></li>
+                </ul>
+            </div>
+            <!-- Col 4: Follow Us -->
+            <div>
+                <h5 class="text-lg font-semibold text-white mb-4">Follow Us</h5>
+                <!-- Social Media Icons Placeholder -->
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-puma-coral transition">FB</a>
+                    <a href="#" class="hover:text-puma-coral transition">IG</a>
+                    <a href="#" class="hover:text-puma-coral transition">TIKTOK</a>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="product-spotlight" id="spotlight">
-        <div class="spotlight-container">
-            <h2>NEW ARRIVALS & BEST SELLERS</h2>
-            <div class="spotlight-grid">
-                <div class="spotlight-item">
-                    <img src="https://source.unsplash.com/random/400x300/?nike,airmax,new" alt="Nike Air Max">
-                    <h4>Nike Air Max 2024</h4>
-                    <p>Cloud-like comfort, legendary style.</p>
-                    <p class="price">$160.00</p>
-                </div>
-                <div class="spotlight-item">
-                    <img src="https://source.unsplash.com/random/400x300/?nike,jordan,retro" alt="Air Jordan Retro">
-                    <h4>Air Jordan 1 Retro OG</h4>
-                    <p>The timeless icon, reimagined for today.</p>
-                    <p class="price">$180.00</p>
-                </div>
-                <div class="spotlight-item">
-                    <img src="https://source.unsplash.com/random/400x300/?nike,metcon,crossfit" alt="Nike Metcon">
-                    <h4>Nike Metcon 9</h4>
-                    <p>Stability and flexibility for elite performance.</p>
-                    <p class="price">$140.00</p>
-                </div>
-                <div class="spotlight-item">
-                    <img src="https://source.unsplash.com/random/400x300/?nike,dunk,low" alt="Nike Dunk Low">
-                    <h4>Nike Dunk Low Disrupt</h4>
-                    <p>A fresh take on a hoops legend.</p>
-                    <p class="price">$120.00</p>
-                </div>
-            </div>
+        <div class="text-center mt-8 text-xs text-gray-500 border-t border-gray-700 pt-4">
+            &copy; 2025 PUMA Apparel. All Rights Reserved.
         </div>
-    </section>
-
-    <footer class="cta-footer" id="explore">
-        <h2>FIND YOUR EDGE</h2>
-        <p>Explore the full range of Nike products and apparel.</p>
-        <button class="hero-button" onclick="alert('Redirecting to full Nike catalog!');">View All Products</button>
-        <div class="footer-links" id="contact">
-            <a href="#">About Nike</a>
-            <a href="#">Help & Support</a>
-            <a href="#">Store Locator</a>
-            <a href="#">Careers</a>
-            <a href="#">Terms of Use</a>
-            <a href="#">Privacy Policy</a>
-        </div>
-        <p class="copyright">&copy; 2024 Nike, Inc. All Rights Reserved.</p>
     </footer>
 
+    <!-- JavaScript for Parallax Scroll Effect -->
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('.nav-links a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                document.querySelector(targetId).scrollIntoView({
-                    behavior: 'smooth'
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = document.querySelector('.hero-bg');
+            if (hero) {
+                // Throttle scroll event for better performance (simple debouncing)
+                let isThrottled = false;
+                
+                window.addEventListener('scroll', () => {
+                    if (!isThrottled) {
+                        window.requestAnimationFrame(() => {
+                            const scrollY = window.scrollY;
+                            // Move background image up 1/3 the scroll distance for a smooth parallax effect
+                            hero.style.backgroundPositionY = `-${scrollY * 0.3}px`;
+                            isThrottled = false;
+                        });
+                        isThrottled = true;
+                    }
                 });
-            });
-        });
-
-        // Show/hide scroll-to-top button
-        const scrollToTopButton = document.getElementById('scrollToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) { // Show button after scrolling 300px
-                scrollToTopButton.classList.add('show');
-            } else {
-                scrollToTopButton.classList.remove('show');
             }
         });
-
-        scrollToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
     </script>
 </body>
 </html>
